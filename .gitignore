@@ -14,3 +14,8 @@ venv
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+
+
+media
+db_new.sqlite3
+
