@@ -16,6 +16,6 @@ venv
 .idea/jsLibraryMappings.xml
 
 
-media
-db_new.sqlite3
+/media
+/db_new.sqlite3
 
