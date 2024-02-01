@@ -55,4 +55,9 @@ def news_category(request, slug):
 # just for testing
 def contact(request):
     categories = NewsCategory.objects.all()
-    return render(request, 'news/contact.html')
+    trending_news = News.objects.all().order_by('-views')[:3]  # 3 ta bo'lishi kerak shuning uchun [:3]
+    context = {
+        'categories': categories,
+        'trending_news': trending_news
+    }
+    return render(request, 'news/contact.html', context=context)
