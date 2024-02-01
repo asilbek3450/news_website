@@ -10,12 +10,14 @@ def news_page(request):
     sport_news = News.objects.filter(category_id__name='SPORT').order_by('-id')
     uzb_news = News.objects.filter(category_id__name='O‘ZBEKISTON').order_by('-id')
     world_news = News.objects.filter(category_id__name='JAHON').order_by('-id')[:4]  # 4 ta bo'lishi kerak shuning uchun [:4]
+    trending_news = News.objects.all().order_by('-views')[:3]  # 3 ta bo'lishi kerak shuning uchun [:3]
     context = {
         'news': news,
         'sport_news': sport_news,
         'uzb_news': uzb_news,
         'categories': categories,
-        'world_news': world_news
+        'world_news': world_news,
+        'trending_news': trending_news
     }
     return render(request, 'news/index.html', context=context)
 
