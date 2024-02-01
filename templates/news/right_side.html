@@ -53,11 +53,13 @@
         {% for new in trending_news %}
         <div class="bg-white border border-top-0 p-3">
             <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                <img class="img-fluid" src="{{ new.get_cover_image }}" alt="" style="width: 110px;">
+                <img class="img-fluid" src="{{ new.get_cover_image }}" alt="" style="width: 110px; height: 100%;">
                 <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                     <div class="mb-2">
                         <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">{{ new.category_id.name }}</a>
                         <a class="text-body" href=""><small>{{ new.created_at}}</small></a>
+                        <small class="ml-3"><i class="far fa-eye mr-2"></i>{{ new.views }}</small>
+                        <small class="ml-3"><i class="far fa-comment mr-2"></i>{{ new.get_comments_count }}</small>
                     </div>
                     <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="{% url 'news_detail' pk=new.id %}">{{ new.title }}</a>
                 </div>
@@ -74,14 +76,13 @@
             <h4 class="m-0 text-uppercase font-weight-bold">Newsletter</h4>
         </div>
         <div class="bg-white text-center border border-top-0 p-3">
-            <p>Aliqu justo et labore at eirmod justo sea erat diam dolor diam vero kasd</p>
+            <p>So'nggi yangiliklarni o'tkazib yubormaslik uchun obuna bo'ling</p>
             <div class="input-group mb-2" style="width: 100%;">
-                <input type="text" class="form-control form-control-lg" placeholder="Your Email">
+                <input type="text" class="form-control form-control-lg" placeholder="Email kiriting">
                 <div class="input-group-append">
                     <button class="btn btn-primary font-weight-bold px-3">Sign Up</button>
                 </div>
             </div>
-            <small>Lorem ipsum dolor sit amet elit</small>
         </div>
     </div>
     <!-- Newsletter End -->
