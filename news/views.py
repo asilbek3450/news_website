@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from news.forms import CommentForm
 from news.models import News, Comment, NewsCategory
 
 
@@ -23,12 +24,30 @@ def news_page(request):
 
 
 def news_detail(request, pk):
+    form = CommentForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            if not request.user.is_authenticated:
+                return redirect('login')
+            comment_text = form.cleaned_data.get('comment_text')
+            user_id = request.user
+            news_id = News.objects.get(id=pk)
+            Comment.objects.create(
+                user_id=user_id,
+                news_id=news_id,
+                comment_text=comment_text
+            )
+            return redirect('news_detail', pk=pk)
+    else:
+        form = CommentForm()
+
     categories = NewsCategory.objects.all()  # barcha kategoriyalarni olish
     single_news = News.objects.get(id=pk)  # qaysi yangilikni ichiga kirgan bo'lsa shu yangilikni olish
     breaking_uzb_news = News.objects.filter(category_id__name='O‘ZBEKISTON').order_by('-id')  # yurtimizga doir degan joyga yangiliklarni filtrlab olish
     news_comments = Comment.objects.filter(news_id=single_news)  # shu yangilikga tegishli commentlarni olish
     trending_news = News.objects.all().order_by('-views')[:3]  # 3 ta bo'lishi kerak shuning uchun [:3]
     context = {
+        'form': form,
         'single_news': single_news,
         'breaking_uzb_news': breaking_uzb_news,
         'news_comments': news_comments,
